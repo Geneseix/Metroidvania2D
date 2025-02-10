@@ -2,33 +2,26 @@ using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
-    [SerializeField] private float followSpeed = 2f; 
-    [SerializeField] private float yOffset = -1f;
-    [SerializeField] private Transform target;
-    [SerializeField] private Vector2 minBounds;
-    [SerializeField] private Vector2 maxBounds;
+    [SerializeField] private Transform player; // Referencia al jugador
+    [SerializeField] private float smoothSpeed = 5f; // Velocidad de seguimiento
+    [SerializeField] private Vector3 offset; // Desplazamiento de la cámara respecto al jugador
 
-    void LateUpdate()
+    [SerializeField] private Vector2 minLimits; // Límite inferior izquierdo
+    [SerializeField] private Vector2 maxLimits; // Límite superior derecho
+
+    private void LateUpdate()
     {
-        if (target != null)
-        {
-            Vector3 newPos = new Vector3(
-                Mathf.Clamp(target.position.x, minBounds.x, maxBounds.x),
-                Mathf.Clamp(target.position.y + yOffset, minBounds.y, maxBounds.y),
-                -10f 
-            );
+        if (player == null) return; // Evita errores si el jugador no está asignado
 
-      
-            transform.position = Vector3.Lerp(transform.position, newPos, followSpeed * Time.deltaTime);
-        }
-    }
+        // Posición deseada con offset
+        Vector3 targetPosition = player.position + offset;
 
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.green;
-        Gizmos.DrawLine(new Vector3(minBounds.x, minBounds.y, -10f), new Vector3(minBounds.x, maxBounds.y, -10f));
-        Gizmos.DrawLine(new Vector3(minBounds.x, maxBounds.y, -10f), new Vector3(maxBounds.x, maxBounds.y, -10f));
-        Gizmos.DrawLine(new Vector3(maxBounds.x, maxBounds.y, -10f), new Vector3(maxBounds.x, minBounds.y, -10f));
-        Gizmos.DrawLine(new Vector3(maxBounds.x, minBounds.y, -10f), new Vector3(minBounds.x, minBounds.y, -10f));
+        // Aplicar límites a la posición de la cámara
+        float clampedX = Mathf.Clamp(targetPosition.x, minLimits.x, maxLimits.x);
+        float clampedY = Mathf.Clamp(targetPosition.y, minLimits.y, maxLimits.y);
+
+        // Interpolación suave
+        Vector3 finalPosition = new Vector3(clampedX, clampedY, targetPosition.z);
+        transform.position = Vector3.Lerp(transform.position, finalPosition, smoothSpeed * Time.deltaTime);
     }
 }

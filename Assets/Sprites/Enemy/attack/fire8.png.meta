@@ -1,25 +1,16 @@
 fileFormatVersion: 2
-guid: 8b0d2131e465a4a69a1b6457254be15c
+guid: 507379a33d82c4597adce3234e23cb78
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -6361255259424178279
-    second: werewolf-run_0
+      213: -2080813031595017780
+    second: fire8_0
   - first:
-      213: 3918620042345672985
-    second: werewolf-run_1
+      213: 8641744900424225009
+    second: fire8_1
   - first:
-      213: -4753405908409220737
-    second: werewolf-run_2
-  - first:
-      213: -1836168771796391148
-    second: werewolf-run_3
-  - first:
-      213: 4685384643252750661
-    second: werewolf-run_4
-  - first:
-      213: -7172754174398897462
-    second: werewolf-run_5
+      213: 7419454341558656347
+    second: fire8_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -61,7 +52,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -128,13 +119,57 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: werewolf-run_0
+      name: fire8_0
       rect:
         serializedVersion: 2
-        x: 0
+        x: 13
+        y: 43
+        width: 11
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cc976c782977f13e0800000000000000
+      internalID: -2080813031595017780
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fire8_1
+      rect:
+        serializedVersion: 2
+        x: 25
+        y: 46
+        width: 11
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1f054557335ade770800000000000000
+      internalID: 8641744900424225009
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fire8_2
+      rect:
+        serializedVersion: 2
+        x: 2
         y: 0
-        width: 75
-        height: 32
+        width: 56
+        height: 44
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -143,118 +178,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 99fbf608b0848b7a0800000000000000
-      internalID: -6361255259424178279
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: werewolf-run_1
-      rect:
-        serializedVersion: 2
-        x: 97
-        y: 0
-        width: 73
-        height: 38
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 9117db1ba2cb16630800000000000000
-      internalID: 3918620042345672985
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: werewolf-run_2
-      rect:
-        serializedVersion: 2
-        x: 192
-        y: 1
-        width: 76
-        height: 43
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: f71860cc282880eb0800000000000000
-      internalID: -4753405908409220737
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: werewolf-run_3
-      rect:
-        serializedVersion: 2
-        x: 288
-        y: 1
-        width: 77
-        height: 43
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 41b29610b3e9486e0800000000000000
-      internalID: -1836168771796391148
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: werewolf-run_4
-      rect:
-        serializedVersion: 2
-        x: 384
-        y: 0
-        width: 79
-        height: 42
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 54986214284d50140800000000000000
-      internalID: 4685384643252750661
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: werewolf-run_5
-      rect:
-        serializedVersion: 2
-        x: 480
-        y: 0
-        width: 78
-        height: 36
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: ac2e0cdc412457c90800000000000000
-      internalID: -7172754174398897462
+      spriteID: b5d55d7e96237f660800000000000000
+      internalID: 7419454341558656347
       vertices: []
       indices: 
       edges: []
@@ -263,7 +188,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -273,12 +198,9 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      werewolf-run_0: -6361255259424178279
-      werewolf-run_1: 3918620042345672985
-      werewolf-run_2: -4753405908409220737
-      werewolf-run_3: -1836168771796391148
-      werewolf-run_4: 4685384643252750661
-      werewolf-run_5: -7172754174398897462
+      fire8_0: -2080813031595017780
+      fire8_1: 8641744900424225009
+      fire8_2: 7419454341558656347
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

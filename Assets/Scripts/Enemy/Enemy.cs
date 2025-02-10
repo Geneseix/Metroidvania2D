@@ -1,47 +1,179 @@
 using UnityEngine;
+using System.Collections;
 
 public class Enemy : MonoBehaviour
 {
-    [SerializeField] private int maxHealth = 100;
-    [SerializeField] private GameObject player;
-    [SerializeField] private float speed;
-    [SerializeField] GameObject pointA;
-    [SerializeField] GameObject pointB;
-    
-    private Rigidbody2D rb;
-    private Animator anim;
-    private Transform currentPoint;
+    public Transform pointA;
+    public Transform pointB;
+    public float speed = 5.0f; 
+    public int maxHealth = 100;
+    public Player player;
+    public GameObject projectilePrefab;
+    public float projectileSpeed = 10f; 
+    public float shootInterval = 2f; 
 
+    private Rigidbody2D rb;
+    private Transform currentPoint;
     private int currentHealth;
+    private float shootTimer; 
+
+    private SpriteRenderer spriteRenderer; 
+    private Color originalColor; 
+    public Color hitColor = Color.red; 
+    public float hitFlashDuration = 0.1f; 
+    public int numberOfFlashes = 3;
+    public float freezeDuration = 0.5f;
 
     void Start()
     {
-        currentHealth = maxHealth;
         rb = GetComponent<Rigidbody2D>();
-        anim = GetComponent<Animator>();
-        currentPoint = pointB.transform;
-        anim.SetBool("isRunning", true);
+        currentPoint = pointB;
+        currentHealth = maxHealth;
+        shootTimer = shootInterval; 
+
+        
+        spriteRenderer = GetComponent<SpriteRenderer>();
+
+        if (spriteRenderer != null)
+        {
+            originalColor = spriteRenderer.color;
+        }
     }
 
-    void Update(){
+    void Update()
+    {
+       
+        if (!IsFreezeActive())
+        {
+            MoveEnemy();
+            ShootProjectile();
+        }
+    }
+
+    void MoveEnemy()
+    {
         Vector2 point = currentPoint.position - transform.position;
-        if(currentPoint == pointB.transform){
+        if (currentPoint == pointB.transform)
+        {
             rb.linearVelocity = new Vector2(speed, 0);
         }
-        else{
+        else
+        {
             rb.linearVelocity = new Vector2(-speed, 0);
+        }
+
+        if (Vector2.Distance(transform.position, currentPoint.position) < 0.5f && currentPoint == pointB.transform)
+        {
+            currentPoint = pointA.transform;
+            Flip();
+        }
+        if (Vector2.Distance(transform.position, currentPoint.position) < 0.5f && currentPoint == pointA.transform)
+        {
+            currentPoint = pointB.transform;
+            Flip();
         }
     }
 
-    public void TakeDamage(int damage) {
-        currentHealth -= damage;
+    void ShootProjectile()
+    {
+        shootTimer -= Time.deltaTime;
 
-        if(currentHealth <= 0) {
+        if (shootTimer <= 0)
+        {
+            GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
+
+            Vector2 shootDirection = (currentPoint == pointA.transform) ? Vector2.left : Vector2.right;
+
+            projectile.GetComponent<Rigidbody2D>().linearVelocity = shootDirection * projectileSpeed;
+
+            shootTimer = shootInterval;
+        }
+    }
+
+    private void Flip()
+    {
+        Vector3 localScale = transform.localScale;
+        localScale.x *= -1;
+        transform.localScale = localScale;
+    }
+
+    public void TakeDamage(int damage)
+    {
+        currentHealth -= damage; 
+        if (spriteRenderer != null)
+        {
+            StartCoroutine(FlashEffect());
+        }
+
+        if (currentHealth <= 0)
+        {
             Die();
         }
     }
 
-    void Die() {
-        Debug.Log("Enemy died!");
+
+    IEnumerator FlashEffect()
+    {
+        // Congela al enemigo
+        FreezeEnemy(true);
+
+
+        for (int i = 0; i < numberOfFlashes; i++)
+        {
+            spriteRenderer.color = hitColor; 
+            yield return new WaitForSeconds(hitFlashDuration); 
+
+            spriteRenderer.color = originalColor;
+            yield return new WaitForSeconds(hitFlashDuration); 
+        }
+
+  
+        yield return new WaitForSeconds(freezeDuration);
+        FreezeEnemy(false);
+    }
+
+
+    void FreezeEnemy(bool freeze)
+    {
+        if (freeze)
+        {
+            rb.linearVelocity = Vector2.zero; 
+        }
+        else
+        {
+     
+            if (currentPoint == pointB.transform)
+            {
+                rb.linearVelocity = new Vector2(speed, 0);
+            }
+            else
+            {
+                rb.linearVelocity = new Vector2(-speed, 0);
+            }
+        }
+    }
+
+    bool IsFreezeActive()
+    {
+        return rb.linearVelocity == Vector2.zero;
+    }
+
+   
+    void Die()
+    {
+        
+        if (player != null)
+        {
+            player.RegisterEnemyDefeated();
+        }
+
+        Destroy(gameObject); 
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireSphere(pointA.transform.position, 0.5f);
+        Gizmos.DrawWireSphere(pointB.transform.position, 0.5f);
+        Gizmos.DrawLine(pointA.transform.position, pointB.transform.position);
     }
 }
